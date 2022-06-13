@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: mild-temper-microservice
+        app: level-leader-microservice-intro
         stack: frontend
         source: demo
-    name: mild-temper-microservice
+    name: level-leader-microservice-intro
     namespace: microservices
 spec:
     replicas: 5
     selector:
         matchLabels:
-            run: mild-temper-microservice
+            run: level-leader-microservice-intro
     template:
         metadata:
             labels:
-                app: mild-temper-microservice
-                run: mild-temper-microservice
+                app: level-leader-microservice-intro
+                run: level-leader-microservice-intro
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/mild-temper-microservice
-                    name: mild-temper-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/level-leader-microservice-intro
+                    name: level-leader-microservice-intro
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,14 +31,14 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: mild-temper-microservice-service
+        app: level-leader-microservice-intro-service
         stack: frontend
-    name: mild-temper-microservice-service
+    name: level-leader-microservice-intro-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: mild-temper-microservice
+        app: level-leader-microservice-intro
     ports:
         -   name: web
             protocol: TCP
@@ -54,15 +54,15 @@ metadata:
         stack: frontend
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: mild-temper-ingress
+    name: level-leader-microservice-intro-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /mild-temper(/|$)(.*)
+                    -   path: /level-leader-microservice-intro(/|$)(.*)
                         backend:
-                            serviceName: mild-temper-microservice-service
+                            serviceName: level-leader-microservice-intro-service
                             servicePort: 30201
 
 
