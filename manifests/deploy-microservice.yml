@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: level-leader-microservice-intro
+        app: level-leader-microservice
         stack: frontend
         source: demo
-    name: level-leader-microservice-intro
+    name: level-leader-microservice
     namespace: microservices
 spec:
     replicas: 5
     selector:
         matchLabels:
-            run: level-leader-microservice-intro
+            run: level-leader-microservice
     template:
         metadata:
             labels:
-                app: level-leader-microservice-intro
-                run: level-leader-microservice-intro
+                app: level-leader-microservice
+                run: level-leader-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/level-leader-microservice-intro
-                    name: level-leader-microservice-intro
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/level-leader-microservice
+                    name: level-leader-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,14 +31,14 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: level-leader-microservice-intro-service
+        app: level-leader-microservice-service
         stack: frontend
-    name: level-leader-microservice-intro-service
+    name: level-leader-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: level-leader-microservice-intro
+        app: level-leader-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -54,15 +54,15 @@ metadata:
         stack: frontend
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: level-leader-microservice-intro-ingress
+    name: level-leader-microservice-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /level-leader-microservice-intro(/|$)(.*)
+                    -   path: /level-leader(/|$)(.*)
                         backend:
-                            serviceName: level-leader-microservice-intro-service
+                            serviceName: level-leader-microservice-service
                             servicePort: 30201
 
 
